@@ -49,9 +49,9 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.caption.setText(photo.caption);
+        viewHolder.caption.setText(photo.getCaption());
         viewHolder.imageView.setImageResource(0); // clear cached data
-        Picasso.with(getContext()).load(photo.imageURL).into(viewHolder.imageView);
+        Picasso.with(getContext()).load(photo.getImageURL()).into(viewHolder.imageView);
         return convertView;
     }
 }
