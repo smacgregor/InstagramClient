@@ -8,16 +8,14 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.TextHttpResponseHandler;
 import com.smacgregor.instagramclient.R;
 import com.smacgregor.instagramclient.core.InstagramPhoto;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.smacgregor.instagramclient.core.InstagramPhotosResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,7 +25,7 @@ public class PhotosActivity extends AppCompatActivity {
 
     private final String INSTAGRAM_CLIENTID = "e05c462ebd86446ea48a5af73769b602";
 
-    private ArrayList<InstagramPhoto> photos;
+    private List<InstagramPhoto> photos;
     private InstagramPhotosAdapter photosAdapter;
 
     @Bind(R.id.listViewPhotos) ListView listViewPhotos;
@@ -50,36 +48,19 @@ public class PhotosActivity extends AppCompatActivity {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.put("key", "value");
-        params.put("more", "data");
-        client.get("https://api.instagram.com/v1/media/popular/?client_id=" + INSTAGRAM_CLIENTID, null, new JsonHttpResponseHandler() {
+        params.put("more", "data"); https://api.instagram.com/v1/tags/search?q=snowy&
+        client.get("https://api.instagram.com/v1/tags/bentleypup/media/recent/?client_id=" + INSTAGRAM_CLIENTID, null, new TextHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            public void onSuccess(int statusCode, Header[] headers, String response) {
                 Log.i("DEBUG", response.toString());
-                JSONArray photosJson = null;
-                try {
-                    photosJson = response.getJSONArray("data"); // array of posts
-                    for (int index = 0; index < photosJson.length(); index++) {
-                        JSONObject photoJson = photosJson.getJSONObject(index);
-                        // decode our photo attributes into our data model
-                        InstagramPhoto photo = new InstagramPhoto();
-                        photo.username = photoJson.getJSONObject("user").getString("username");
-                        photo.caption = photoJson.getJSONObject("caption").getString("text");
-                        photo.numberOfLikes = photoJson.getJSONObject("likes").getInt("count");
-                        photo.imageURL = photoJson.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
-                        photo.imageHeight = photoJson.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
-                        photos.add(photo);
-                    }
 
-                    photosAdapter.notifyDataSetChanged();
-
-                } catch (JSONException ex) {
-                    ex.printStackTrace();
-                }
+                photos.addAll(InstagramPhotosResponse.parseJSON(response).photos);
+                photosAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-
+                // Do something useful
             }
         });
     }
