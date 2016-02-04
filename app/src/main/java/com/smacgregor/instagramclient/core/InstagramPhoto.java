@@ -27,9 +27,12 @@ public class InstagramPhoto {
         return user.username;
     }
 
+    public String profilePicture() { return user.profilePicture; }
+
     // boiler plate classes required for GSON integration
     private class User {
         String username;
+        String profilePicture;
     }
 
     private class Likes {
