@@ -29,6 +29,10 @@ public class InstagramPhoto {
         return images.image.height;
     }
 
+    public int getImageWidth() {
+        return images.image.width;
+    }
+
     public long getCreatedTime() {
         return createdTime;
     }
@@ -56,6 +60,7 @@ public class InstagramPhoto {
         private class Image {
             String url;
             int height;
+            int width;
         }
         @SerializedName("standard_resolution")
         Image image;
