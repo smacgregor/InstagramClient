@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.smacgregor.instagramclient.R;
 import com.smacgregor.instagramclient.core.InstagramPhoto;
@@ -45,6 +44,8 @@ public class PhotosActivity extends AppCompatActivity implements SwipeRefreshLay
         swipeRefreshLayout.setNestedScrollingEnabled(true);
 
         // send out an api request to popular photos
+        // On cold launch our refresh animation wont' fire unless it's done
+        // outside of onCreate...
         swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -57,9 +58,6 @@ public class PhotosActivity extends AppCompatActivity implements SwipeRefreshLay
     public void fetchPopularPhotos() {
         swipeRefreshLayout.setRefreshing(true);
         AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-        params.put("key", "value");
-        params.put("more", "data"); https://api.instagram.com/v1/tags/search?q=snowy&
         client.get("https://api.instagram.com/v1/tags/bentleypup/media/recent/?client_id=" + INSTAGRAM_CLIENTID, null, new TextHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String response) {
