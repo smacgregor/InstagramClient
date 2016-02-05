@@ -56,6 +56,7 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         viewHolder.imageView.setImageResource(0); // clear cached data
 
         Picasso.with(getContext()).load(photo.getImageURL())
+                .placeholder(R.drawable.photo_placeholder)
                 .resize(viewHolder.imageWidth, 0)
                 .into(viewHolder.imageView);
         return convertView;
