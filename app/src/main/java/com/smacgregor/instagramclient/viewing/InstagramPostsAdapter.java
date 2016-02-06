@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.smacgregor.instagramclient.R;
 import com.smacgregor.instagramclient.core.InstagramComment;
-import com.smacgregor.instagramclient.core.InstagramPhoto;
+import com.smacgregor.instagramclient.core.InstagramPost;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 /**
  * Created by smacgregor on 2/2/16.
  */
-public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
+public class InstagramPostsAdapter extends ArrayAdapter<InstagramPost> {
 
     // implement the ViewHolder pattern
     static class ViewHolder {
@@ -61,13 +61,13 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         }
     }
 
-    public InstagramPhotosAdapter(Context context, List<InstagramPhoto> instagramPhotos) {
+    public InstagramPostsAdapter(Context context, List<InstagramPost> instagramPhotos) {
         super(context, android.R.layout.simple_list_item_1, instagramPhotos);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        InstagramPhoto photo = getItem(position);
+        InstagramPost post = getItem(position);
 
         ViewHolder viewHolder;
         if (convertView == null) {
@@ -80,17 +80,17 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
             prepareViewForReUse(viewHolder);
         }
 
-        setCommentText(photo.getUser().getUserName(), photo.getCaption(), viewHolder.caption);
-        viewHolder.userNameTextView.setText(photo.getUser().getUserName());
+        setCommentText(post.getUser().getUserName(), post.getCaption(), viewHolder.caption);
+        viewHolder.userNameTextView.setText(post.getUser().getUserName());
 
-        CharSequence formattedDate = DateUtils.getRelativeTimeSpanString(photo.getCreatedTime() * DateUtils.SECOND_IN_MILLIS,
+        CharSequence formattedDate = DateUtils.getRelativeTimeSpanString(post.getCreatedTime() * DateUtils.SECOND_IN_MILLIS,
                 System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL);
         viewHolder.timeStampTextView.setText(formattedDate);
-        int numberOfLikes = photo.getLikeCount();
+        int numberOfLikes = post.getLikeCount();
         String numberOfLikesString = getContext().getResources().getQuantityString(R.plurals.numberOfLikes, numberOfLikes, numberOfLikes);
         viewHolder.likesCountTextView.setText(numberOfLikesString);
 
-        List <InstagramComment> comments = photo.getComments();
+        List <InstagramComment> comments = post.getComments();
         if (comments.size() > 1) {
             setCommentText(comments.get(comments.size() - 1).getUser().getUserName(), comments.get(comments.size() - 1).getText(), viewHolder.secondComment);
         }
@@ -103,12 +103,12 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
                 .resize(20, 0)
                 .into(viewHolder.likeHeartImageView);
 
-        Picasso.with(getContext()).load(photo.getImageURL())
+        Picasso.with(getContext()).load(post.getImageURL())
                 .placeholder(R.drawable.photo_placeholder)
                 .resize(viewHolder.imageWidth, 0)
                 .into(viewHolder.imageView);
 
-        Picasso.with(getContext()).load(photo.getUser().profilePicture())
+        Picasso.with(getContext()).load(post.getUser().profilePicture())
                 .resize(50, 50)
                 .into(viewHolder.profilePicture);
 

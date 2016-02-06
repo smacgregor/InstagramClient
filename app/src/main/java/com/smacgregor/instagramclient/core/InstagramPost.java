@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by smacgregor on 2/2/16.
  */
-public class InstagramPhoto {
+public class InstagramPost {
 
     public InstagramUser getUser() {
         return user;

@@ -11,8 +11,8 @@ import android.widget.ListView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.smacgregor.instagramclient.R;
-import com.smacgregor.instagramclient.core.InstagramPhoto;
-import com.smacgregor.instagramclient.core.InstagramPhotosResponse;
+import com.smacgregor.instagramclient.core.InstagramPost;
+import com.smacgregor.instagramclient.core.InstagramPostsResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +25,10 @@ public class PhotosActivity extends AppCompatActivity implements SwipeRefreshLay
 
     private final String INSTAGRAM_CLIENTID = "e05c462ebd86446ea48a5af73769b602";
 
-    private List<InstagramPhoto> photos;
-    private InstagramPhotosAdapter photosAdapter;
+    private List<InstagramPost> posts;
+    private InstagramPostsAdapter postsAdapter;
 
-    @Bind(R.id.listViewPhotos) ListView listViewPhotos;
+    @Bind(R.id.listViewPosts) ListView listViewPosts;
     @Bind(R.id.swipeContainer) SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
@@ -37,34 +37,34 @@ public class PhotosActivity extends AppCompatActivity implements SwipeRefreshLay
         setContentView(R.layout.activity_photos);
         ButterKnife.bind(this);
 
-        photos = new ArrayList<>();
-        photosAdapter = new InstagramPhotosAdapter(this, photos);
-        listViewPhotos.setAdapter(photosAdapter);
+        posts = new ArrayList<>();
+        postsAdapter = new InstagramPostsAdapter(this, posts);
+        listViewPosts.setAdapter(postsAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setNestedScrollingEnabled(true);
 
-        // send out an api request to popular photos
+        // send out an api request to popular posts
         // On cold launch our refresh animation wont' fire unless it's done
         // outside of onCreate...
         swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
-                fetchPopularPhotos();
+                fetchPopularPosts();
             }
         });
 
     }
 
-    public void fetchPopularPhotos() {
+    public void fetchPopularPosts() {
         swipeRefreshLayout.setRefreshing(true);
         AsyncHttpClient client = new AsyncHttpClient();
         client.get("https://api.instagram.com/v1/media/popular/?client_id=" + INSTAGRAM_CLIENTID, null, new TextHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String response) {
                 Log.i("DEBUG", response.toString());
-                photos.clear();
-                photos.addAll(InstagramPhotosResponse.parseJSON(response).photos);
-                photosAdapter.notifyDataSetChanged();
+                posts.clear();
+                posts.addAll(InstagramPostsResponse.parseJSON(response).posts);
+                postsAdapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
             }
 
@@ -78,7 +78,7 @@ public class PhotosActivity extends AppCompatActivity implements SwipeRefreshLay
 
     @Override
     public void onRefresh() {
-        fetchPopularPhotos();
+        fetchPopularPosts();
     }
 
     @Override
