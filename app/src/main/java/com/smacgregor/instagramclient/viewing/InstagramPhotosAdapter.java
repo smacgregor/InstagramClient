@@ -24,8 +24,17 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
 
     // implement the ViewHolder pattern
     static class ViewHolder {
-        @Bind(R.id.tvCaption) TextView caption;
-        @Bind(R.id.ivPhoto) ImageView imageView;
+        @Bind(R.id.tvCaption)
+        TextView caption;
+
+        @Bind(R.id.ivPhoto)
+        ImageView imageView;
+
+        @Bind(R.id.profilePicture)
+        ImageView profilePicture;
+
+        @Bind(R.id.userName)
+        TextView userNameTextView;
 
         int imageWidth;
 
@@ -53,12 +62,18 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         }
 
         viewHolder.caption.setText(photo.getCaption());
+        viewHolder.userNameTextView.setText(photo.getUser().getUserName());
         viewHolder.imageView.setImageResource(0); // clear cached data
 
         Picasso.with(getContext()).load(photo.getImageURL())
                 .placeholder(R.drawable.photo_placeholder)
                 .resize(viewHolder.imageWidth, 0)
                 .into(viewHolder.imageView);
+
+        Picasso.with(getContext()).load(photo.getUser().profilePicture())
+                .resize(50, 50)
+                .into(viewHolder.profilePicture);
+
         return convertView;
     }
 }
