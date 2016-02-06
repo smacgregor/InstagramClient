@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.smacgregor.instagramclient.R;
+import com.smacgregor.instagramclient.core.InstagramComment;
 import com.smacgregor.instagramclient.core.InstagramPhoto;
 import com.squareup.picasso.Picasso;
 
@@ -47,6 +48,12 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         @Bind(R.id.likeHeart)
         ImageView likeHeartImageView;
 
+        @Bind(R.id.tvFirstComment)
+        TextView firstComment;
+
+        @Bind(R.id.tvSecondComment)
+        TextView secondComment;
+
         int imageWidth;
 
         public ViewHolder(View view) {
@@ -70,27 +77,27 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
+            prepareViewForReUse(viewHolder);
         }
 
-
-        String caption = photo.getCaption();
-        int pos = caption.indexOf("#");
-        String htmlCaption = getContext().
-                getResources().
-                getString(R.string.htmlFormattedComment,
-                        photo.getUser().getUserName(),
-                        (pos > 0) ? caption.substring(0, pos) : caption,
-                        (pos > 0) ? caption.substring(pos) : "");
-        viewHolder.caption.setText(Html.fromHtml(htmlCaption));
-
+        setCommentText(photo.getUser().getUserName(), photo.getCaption(), viewHolder.caption);
         viewHolder.userNameTextView.setText(photo.getUser().getUserName());
-        viewHolder.imageView.setImageResource(0); // clear cached data
+
         CharSequence formattedDate = DateUtils.getRelativeTimeSpanString(photo.getCreatedTime() * DateUtils.SECOND_IN_MILLIS,
                 System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL);
         viewHolder.timeStampTextView.setText(formattedDate);
         int numberOfLikes = photo.getLikeCount();
         String numberOfLikesString = getContext().getResources().getQuantityString(R.plurals.numberOfLikes, numberOfLikes, numberOfLikes);
         viewHolder.likesCountTextView.setText(numberOfLikesString);
+
+        List <InstagramComment> comments = photo.getComments();
+        if (comments.size() > 1) {
+            setCommentText(comments.get(comments.size() - 1).getUser().getUserName(), comments.get(comments.size() - 1).getText(), viewHolder.secondComment);
+        }
+
+        if (comments.size() > 2) {
+            setCommentText(comments.get(comments.size() - 2).getUser().getUserName(), comments.get(comments.size() - 2).getText(), viewHolder.firstComment);
+        }
 
         Picasso.with(getContext()).load(R.drawable.small_like_heart)
                 .resize(20, 0)
@@ -106,5 +113,24 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
                 .into(viewHolder.profilePicture);
 
         return convertView;
+    }
+
+    private void prepareViewForReUse(ViewHolder viewHolder) {
+        viewHolder.imageView.setImageResource(0); // clear cached data
+        viewHolder.secondComment.setText("");
+        viewHolder.firstComment.setText("");
+        viewHolder.caption.setText("");
+    }
+
+    private void setCommentText(final String userName, final String comment, TextView textView) {
+        // To Do - make this smarter
+        int pos = comment.indexOf("#");
+        String htmlCaption = getContext().
+                getResources().
+                getString(R.string.htmlFormattedComment,
+                        userName,
+                        (pos > 0) ? comment.substring(0, pos) : comment,
+                        (pos > 0) ? comment.substring(pos) : "");
+        textView.setText(Html.fromHtml(htmlCaption));
     }
 }

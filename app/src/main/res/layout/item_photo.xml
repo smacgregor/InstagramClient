@@ -51,8 +51,8 @@
         android:layout_below="@id/ivUserLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:adjustViewBounds="true"
-        android:minHeight="50dp" />
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"/>
 
     <LinearLayout
         android:id="@+id/likesRow"
@@ -77,12 +77,11 @@
 
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingBottom="8dp"
         android:textColor="@color/style_color_primary"
         android:id="@+id/tvCaption"
         android:layout_below="@+id/likesRow"
@@ -90,4 +89,24 @@
         android:layout_alignParentStart="true"
         android:maxLines="3"
         android:ellipsize="end" />
+
+    <TextView
+        android:id="@+id/tvFirstComment"
+        android:layout_below="@+id/tvCaption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/style_color_primary"
+        android:paddingTop="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"/>
+
+    <TextView
+        android:id="@+id/tvSecondComment"
+        android:layout_below="@+id/tvFirstComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/style_color_primary"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="8dp"/>
 </RelativeLayout>
