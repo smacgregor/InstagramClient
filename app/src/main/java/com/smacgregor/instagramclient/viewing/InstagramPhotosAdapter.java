@@ -1,6 +1,7 @@
 package com.smacgregor.instagramclient.viewing;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,12 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         @Bind(R.id.userName)
         TextView userNameTextView;
 
+        @Bind(R.id.likesCount)
+        TextView likesCountTextView;
+
+        @Bind(R.id.timeStamp)
+        TextView timeStampTextView;
+
         int imageWidth;
 
         public ViewHolder(View view) {
@@ -64,6 +71,12 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         viewHolder.caption.setText(photo.getCaption());
         viewHolder.userNameTextView.setText(photo.getUser().getUserName());
         viewHolder.imageView.setImageResource(0); // clear cached data
+        CharSequence formattedDate = DateUtils.getRelativeTimeSpanString(photo.getCreatedTime() * DateUtils.SECOND_IN_MILLIS,
+                System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL);
+        viewHolder.timeStampTextView.setText(formattedDate);
+        int numberOfLikes = photo.getLikeCount();
+        String numberOfLikesString = getContext().getResources().getQuantityString(R.plurals.numberOfLikes, numberOfLikes, numberOfLikes);
+        viewHolder.likesCountTextView.setText(numberOfLikesString);
 
         Picasso.with(getContext()).load(photo.getImageURL())
                 .placeholder(R.drawable.photo_placeholder)
