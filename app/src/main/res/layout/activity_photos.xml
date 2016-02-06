@@ -12,7 +12,10 @@
         <ListView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="#FFFFFF"
             android:id="@+id/listViewPhotos"
+            android:divider="@null"
+            android:dividerHeight="15dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
