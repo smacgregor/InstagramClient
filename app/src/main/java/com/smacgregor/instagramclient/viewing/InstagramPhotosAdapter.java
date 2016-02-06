@@ -27,6 +27,8 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         @Bind(R.id.tvCaption) TextView caption;
         @Bind(R.id.ivPhoto) ImageView imageView;
 
+        int imageWidth;
+
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
@@ -44,6 +46,7 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         if (convertView == null) {
            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo, parent, false);
             viewHolder = new ViewHolder(convertView);
+            viewHolder.imageWidth = DeviceDimensionsHelper.getDisplayWidth(getContext()); // avoid re-calculating
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -51,7 +54,11 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
 
         viewHolder.caption.setText(photo.getCaption());
         viewHolder.imageView.setImageResource(0); // clear cached data
-        Picasso.with(getContext()).load(photo.getImageURL()).into(viewHolder.imageView);
+
+        Picasso.with(getContext()).load(photo.getImageURL())
+                .placeholder(R.drawable.photo_placeholder)
+                .resize(viewHolder.imageWidth, 0)
+                .into(viewHolder.imageView);
         return convertView;
     }
 }
