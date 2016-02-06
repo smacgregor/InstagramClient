@@ -1,6 +1,7 @@
 package com.smacgregor.instagramclient.viewing;
 
 import android.content.Context;
+import android.text.Html;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,9 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         @Bind(R.id.timeStamp)
         TextView timeStampTextView;
 
+        @Bind(R.id.likeHeart)
+        ImageView likeHeartImageView;
+
         int imageWidth;
 
         public ViewHolder(View view) {
@@ -68,7 +72,17 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.caption.setText(photo.getCaption());
+
+        String caption = photo.getCaption();
+        int pos = caption.indexOf("#");
+        String htmlCaption = getContext().
+                getResources().
+                getString(R.string.htmlFormattedComment,
+                        photo.getUser().getUserName(),
+                        (pos > 0) ? caption.substring(0, pos) : caption,
+                        (pos > 0) ? caption.substring(pos) : "");
+        viewHolder.caption.setText(Html.fromHtml(htmlCaption));
+
         viewHolder.userNameTextView.setText(photo.getUser().getUserName());
         viewHolder.imageView.setImageResource(0); // clear cached data
         CharSequence formattedDate = DateUtils.getRelativeTimeSpanString(photo.getCreatedTime() * DateUtils.SECOND_IN_MILLIS,
@@ -77,6 +91,10 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         int numberOfLikes = photo.getLikeCount();
         String numberOfLikesString = getContext().getResources().getQuantityString(R.plurals.numberOfLikes, numberOfLikes, numberOfLikes);
         viewHolder.likesCountTextView.setText(numberOfLikesString);
+
+        Picasso.with(getContext()).load(R.drawable.small_like_heart)
+                .resize(20, 0)
+                .into(viewHolder.likeHeartImageView);
 
         Picasso.with(getContext()).load(photo.getImageURL())
                 .placeholder(R.drawable.photo_placeholder)

@@ -6,8 +6,8 @@
         android:layout_width="match_parent"
         android:id="@+id/ivUserLayout"
         android:minHeight="50dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:layout_height="wrap_content">
 
         <TextView
@@ -15,7 +15,6 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#AFB1B4"
-            android:text="4w"
             android:id="@+id/timeStamp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
@@ -37,9 +36,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Text"
-            android:textColor="#2d5d82"
+            android:textColor="@color/style_color_primary"
             android:id="@+id/userName"
-            android:paddingLeft="10dp"
+            android:paddingLeft="8dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/profilePicture"
             android:layout_toEndOf="@+id/profilePicture" />
@@ -55,23 +54,40 @@
         android:adjustViewBounds="true"
         android:minHeight="50dp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/likesRow"
+        android:layout_below="@+id/ivPhoto"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
         android:paddingLeft="10dp"
-        android:textColor="#2d5d82"
-        android:id="@+id/likesCount"
-        android:layout_below="@+id/ivPhoto" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/likeHeart"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:textColor="@color/style_color_primary"
+            android:id="@+id/likesCount"/>
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Test"
+        android:paddingTop="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="8dp"
+        android:textColor="@color/style_color_primary"
         android:id="@+id/tvCaption"
-        android:layout_below="@+id/likesCount"
+        android:layout_below="@+id/likesRow"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="20sp"
         android:maxLines="3"
         android:ellipsize="end" />
 </RelativeLayout>

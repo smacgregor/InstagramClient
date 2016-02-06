@@ -58,7 +58,7 @@ public class PhotosActivity extends AppCompatActivity implements SwipeRefreshLay
     public void fetchPopularPhotos() {
         swipeRefreshLayout.setRefreshing(true);
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get("https://api.instagram.com/v1/tags/bentleypup/media/recent/?client_id=" + INSTAGRAM_CLIENTID, null, new TextHttpResponseHandler() {
+        client.get("https://api.instagram.com/v1/media/popular/?client_id=" + INSTAGRAM_CLIENTID, null, new TextHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String response) {
                 Log.i("DEBUG", response.toString());

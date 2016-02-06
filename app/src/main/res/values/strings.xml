@@ -6,4 +6,11 @@
         <item quantity="one">%d like</item>
         <item quantity="other">%d likes</item>
     </plurals>
+
+    <string name="htmlFormattedComment">
+        <![CDATA[
+            %1$s <font color="#696F75">%2$s</font> %3$s
+        ]]>
+    </string>
+
 </resources>
