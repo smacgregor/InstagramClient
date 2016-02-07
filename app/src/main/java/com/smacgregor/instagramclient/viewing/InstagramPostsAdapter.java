@@ -71,7 +71,7 @@ public class InstagramPostsAdapter extends ArrayAdapter<InstagramPost> {
 
         ViewHolder viewHolder;
         if (convertView == null) {
-           convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo, parent, false);
             viewHolder = new ViewHolder(convertView);
             viewHolder.imageWidth = DeviceDimensionsHelper.getDisplayWidth(getContext()); // avoid re-calculating
             convertView.setTag(viewHolder);
@@ -80,7 +80,7 @@ public class InstagramPostsAdapter extends ArrayAdapter<InstagramPost> {
             prepareViewForReUse(viewHolder);
         }
 
-        viewHolder.userNameTextView.setText(post.getUser().getUserName());
+        setupUserName(post.getUser().getUserName(), viewHolder.userNameTextView);
         setupTimeStamp(post.getCreatedTime(), viewHolder.timeStampTextView);
         setupLikesCount(post.getLikeCount(), viewHolder.likesCountTextView);
         setupCommentsForPost(post.getComments(), viewHolder);
@@ -115,6 +115,10 @@ public class InstagramPostsAdapter extends ArrayAdapter<InstagramPost> {
         viewHolder.caption.setText("");
     }
 
+    private void setupUserName(final String userName, TextView userNameTextView) {
+        userNameTextView.setText(userName);
+    }
+
     private void setCommentText(final String userName, final String comment, TextView textView) {
         // To Do - make this smarter - tokenizing all words beginning with '@' or '#'
         int pos = comment.indexOf("#");
@@ -145,7 +149,7 @@ public class InstagramPostsAdapter extends ArrayAdapter<InstagramPost> {
     private void setupTimeStamp(final long postCreatedTime, final TextView timeStampTextView) {
         // convert the time stamp into a short relative date like 4h or 2 days
         CharSequence formattedDate = DateUtils.getRelativeTimeSpanString(postCreatedTime* DateUtils.SECOND_IN_MILLIS,
-                System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL);
+                System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE);
         timeStampTextView.setText(formattedDate);
     }
 }
