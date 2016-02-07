@@ -7,9 +7,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/ivUserLayout"
-        android:minHeight="50dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:minHeight="70dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -28,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/style_color_primary"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/userName"
             android:paddingLeft="8dp"
             android:layout_centerVertical="true"
@@ -37,7 +38,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#AFB1B4"
             android:id="@+id/timeStamp"
             android:layout_centerVertical="true"
@@ -53,9 +54,7 @@
         android:id="@+id/ivPhoto"
         android:layout_below="@id/ivUserLayout"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:scaleType="fitXY"
-        android:adjustViewBounds="true"/>
+        android:layout_alignParentStart="true"/>
 
     <!-- A linear layout to horizontally render the likes heart and
          likes count -->
@@ -65,7 +64,7 @@
         android:layout_below="@+id/ivPhoto"
         android:orientation="horizontal"
         android:paddingTop="8dp"
-        android:paddingLeft="10dp"
+        android:paddingLeft="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -76,6 +75,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:paddingLeft="5dp"
             android:textColor="@color/style_color_primary"
             android:id="@+id/likesCount"/>
@@ -87,13 +87,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:textColor="@color/style_color_primary"
         android:id="@+id/tvCaption"
         android:layout_below="@+id/likesRow"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:maxLines="3"
         android:ellipsize="end" />
 
@@ -103,17 +104,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/style_color_primary"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:paddingTop="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"/>
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"/>
 
     <TextView
         android:id="@+id/tvSecondComment"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_below="@+id/tvFirstComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/style_color_primary"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:paddingBottom="8dp"/>
 </RelativeLayout>
