@@ -1,11 +1,10 @@
 package com.smacgregor.instagramclient.viewing;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -19,6 +18,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 import cz.msebera.android.httpclient.Header;
 
 public class PhotosActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
@@ -81,25 +81,13 @@ public class PhotosActivity extends AppCompatActivity implements SwipeRefreshLay
         fetchPopularPosts();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_photos, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    @OnItemClick(R.id.listViewPosts)
+    public void onLoadVideo(int position) {
+        InstagramPost post = postsAdapter.getItem(position);
+        if (post.getVideo() != null) {
+            Intent intent = new Intent(PhotosActivity.this, FullScreenVideoActivity.class);
+            intent.putExtra("video_url", post.getVideo().getUrl());
+            startActivity(intent);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }
