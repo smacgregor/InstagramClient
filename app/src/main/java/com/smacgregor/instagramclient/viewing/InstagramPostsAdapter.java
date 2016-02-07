@@ -80,25 +80,14 @@ public class InstagramPostsAdapter extends ArrayAdapter<InstagramPost> {
             prepareViewForReUse(viewHolder);
         }
 
-        setCommentText(post.getUser().getUserName(), post.getCaption(), viewHolder.caption);
         viewHolder.userNameTextView.setText(post.getUser().getUserName());
+        setupTimeStamp(post.getCreatedTime(), viewHolder.timeStampTextView);
+        setupLikesCount(post.getLikeCount(), viewHolder.likesCountTextView);
+        setupCommentsForPost(post.getComments(), viewHolder);
+        setCommentText(post.getUser().getUserName(), post.getCaption(), viewHolder.caption);
 
-        CharSequence formattedDate = DateUtils.getRelativeTimeSpanString(post.getCreatedTime() * DateUtils.SECOND_IN_MILLIS,
-                System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL);
-        viewHolder.timeStampTextView.setText(formattedDate);
-        int numberOfLikes = post.getLikeCount();
-        String numberOfLikesString = getContext().getResources().getQuantityString(R.plurals.numberOfLikes, numberOfLikes, numberOfLikes);
-        viewHolder.likesCountTextView.setText(numberOfLikesString);
-
-        List <InstagramComment> comments = post.getComments();
-        if (comments.size() > 1) {
-            setCommentText(comments.get(comments.size() - 1).getUser().getUserName(), comments.get(comments.size() - 1).getText(), viewHolder.secondComment);
-        }
-
-        if (comments.size() > 2) {
-            setCommentText(comments.get(comments.size() - 2).getUser().getUserName(), comments.get(comments.size() - 2).getText(), viewHolder.firstComment);
-        }
-
+        // To Do - can't this be sized correctly in the XML without using Picasso
+        // to resize this drawable?
         Picasso.with(getContext()).load(R.drawable.small_like_heart)
                 .resize(20, 0)
                 .into(viewHolder.likeHeartImageView);
@@ -115,6 +104,10 @@ public class InstagramPostsAdapter extends ArrayAdapter<InstagramPost> {
         return convertView;
     }
 
+    /**
+     * Prepare a cached view for reuse by clearing out appropriate fields
+     * @param viewHolder
+     */
     private void prepareViewForReUse(ViewHolder viewHolder) {
         viewHolder.imageView.setImageResource(0); // clear cached data
         viewHolder.secondComment.setText("");
@@ -123,7 +116,7 @@ public class InstagramPostsAdapter extends ArrayAdapter<InstagramPost> {
     }
 
     private void setCommentText(final String userName, final String comment, TextView textView) {
-        // To Do - make this smarter
+        // To Do - make this smarter - tokenizing all words beginning with '@' or '#'
         int pos = comment.indexOf("#");
         String htmlCaption = getContext().
                 getResources().
@@ -132,5 +125,27 @@ public class InstagramPostsAdapter extends ArrayAdapter<InstagramPost> {
                         (pos > 0) ? comment.substring(0, pos) : comment,
                         (pos > 0) ? comment.substring(pos) : "");
         textView.setText(Html.fromHtml(htmlCaption));
+    }
+
+    private void setupLikesCount(final int numberOfLikes, TextView likesCountTextView) {
+        String numberOfLikesString = getContext().getResources().getQuantityString(R.plurals.numberOfLikes, numberOfLikes, numberOfLikes);
+        likesCountTextView.setText(numberOfLikesString);
+    }
+
+    private void setupCommentsForPost(final List<InstagramComment> comments, final ViewHolder viewHolder) {
+        if (comments.size() > 1) {
+            setCommentText(comments.get(comments.size() - 1).getUser().getUserName(), comments.get(comments.size() - 1).getText(), viewHolder.secondComment);
+        }
+
+        if (comments.size() > 2) {
+            setCommentText(comments.get(comments.size() - 2).getUser().getUserName(), comments.get(comments.size() - 2).getText(), viewHolder.firstComment);
+        }
+    }
+
+    private void setupTimeStamp(final long postCreatedTime, final TextView timeStampTextView) {
+        // convert the time stamp into a short relative date like 4h or 2 days
+        CharSequence formattedDate = DateUtils.getRelativeTimeSpanString(postCreatedTime* DateUtils.SECOND_IN_MILLIS,
+                System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL);
+        timeStampTextView.setText(formattedDate);
     }
 }

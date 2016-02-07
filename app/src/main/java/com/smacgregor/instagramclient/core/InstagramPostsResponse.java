@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Deserialize a JSON response from instagram into a list of InstagramPosts
  * Created by smacgregor on 2/2/16.
  */
 public class InstagramPostsResponse {
