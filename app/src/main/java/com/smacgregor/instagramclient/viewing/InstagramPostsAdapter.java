@@ -71,7 +71,7 @@ public class InstagramPostsAdapter extends ArrayAdapter<InstagramPost> {
 
         ViewHolder viewHolder;
         if (convertView == null) {
-           convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo, parent, false);
             viewHolder = new ViewHolder(convertView);
             viewHolder.imageWidth = DeviceDimensionsHelper.getDisplayWidth(getContext()); // avoid re-calculating
             convertView.setTag(viewHolder);
