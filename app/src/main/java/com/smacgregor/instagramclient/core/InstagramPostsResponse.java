@@ -11,17 +11,17 @@ import java.util.List;
 /**
  * Created by smacgregor on 2/2/16.
  */
-public class InstagramPhotosResponse {
+public class InstagramPostsResponse {
     @SerializedName("data")
-    public List<InstagramPhoto> photos;
+    public List<InstagramPost> posts;
 
-    public InstagramPhotosResponse() {
-        photos = new ArrayList<>();
+    public InstagramPostsResponse() {
+        posts = new ArrayList<>();
     }
 
-    public static InstagramPhotosResponse parseJSON(String response) {
+    public static InstagramPostsResponse parseJSON(String response) {
         Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
-        InstagramPhotosResponse instagramPhotosResponse = gson.fromJson(response, InstagramPhotosResponse.class);
-        return instagramPhotosResponse;
+        InstagramPostsResponse instagramPostsResponse = gson.fromJson(response, InstagramPostsResponse.class);
+        return instagramPostsResponse;
     }
 }
