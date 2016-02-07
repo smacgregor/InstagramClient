@@ -149,7 +149,7 @@ public class InstagramPostsAdapter extends ArrayAdapter<InstagramPost> {
     private void setupTimeStamp(final long postCreatedTime, final TextView timeStampTextView) {
         // convert the time stamp into a short relative date like 4h or 2 days
         CharSequence formattedDate = DateUtils.getRelativeTimeSpanString(postCreatedTime* DateUtils.SECOND_IN_MILLIS,
-                System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE);
+                System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_ALL);
         timeStampTextView.setText(formattedDate);
     }
 }
