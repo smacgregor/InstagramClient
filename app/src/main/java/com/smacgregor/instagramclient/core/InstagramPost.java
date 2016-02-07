@@ -1,26 +1,21 @@
 package com.smacgregor.instagramclient.core;
 
-import android.support.annotation.IntDef;
-
 import com.google.gson.annotations.SerializedName;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 
 /**
  * Created by smacgregor on 2/2/16.
+ * The model for an instagram post. A post is composes a user (the poster),
+ * an image, a video (optional), comments, caption and likes.
  */
 
 public class InstagramPost {
 
-    public static final int PHOTO = 0;
-    public static final int VIDEO = 1;
-
-    @IntDef({PHOTO, VIDEO})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface MediaType {}
-
+    /**
+     * Returns the user that created the post
+     * @return
+     */
     public InstagramUser getUser() {
         return user;
     }
@@ -37,24 +32,12 @@ public class InstagramPost {
         return images.image.url;
     }
 
-    public int getImageHeight() {
-        return images.image.height;
-    }
-
-    public int getImageWidth() {
-        return images.image.width;
-    }
-
     public long getCreatedTime() {
         return createdTime;
     }
 
     public List<InstagramComment> getComments() {
         return commentsCollection.comments;
-    }
-
-    public @MediaType int getMediaType() {
-        return mediaType == "video" ? VIDEO : PHOTO;
     }
 
     public InstagramVideo getVideo() {
@@ -65,7 +48,8 @@ public class InstagramPost {
         }
     }
 
-    // boiler plate classes required for GSON integration
+    // boiler plate classes required for GSON to
+    // auto create our model objects
 
     private class Likes {
         int count;
@@ -88,8 +72,6 @@ public class InstagramPost {
     private class Images {
         private class Image {
             String url;
-            int height;
-            int width;
         }
         @SerializedName("standard_resolution")
         Image image;
@@ -101,9 +83,6 @@ public class InstagramPost {
     private Videos videos;
     private Caption caption;
     private long createdTime;
-
-    @SerializedName("type")
-    private String mediaType;
 
     @SerializedName("comments")
     private CommentsCollection commentsCollection;

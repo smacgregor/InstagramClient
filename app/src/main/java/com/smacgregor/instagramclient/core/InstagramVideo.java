@@ -9,15 +9,5 @@ public class InstagramVideo {
         return url;
     }
 
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
     private String url;
-    private int height;
-    private int width;
 }
