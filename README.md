@@ -31,7 +31,8 @@ The following **bonus** features are implemented:
 The following **additional** features are implemented:
 
 * [X] Apply the Butterknife annotation library to reduce view boilerplate. 
-* [X] Use GSON to create the models from the JSON response inste
+* [X] Use GSON to create the models from the JSON response instead of manually parsing the JSON
+* [X] On cold launch, display the refresh spinner while fetching popular instagram posts
 
 ## Video Walkthrough 
 
