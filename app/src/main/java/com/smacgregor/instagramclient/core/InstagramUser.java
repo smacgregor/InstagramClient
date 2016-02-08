@@ -6,6 +6,9 @@ package com.smacgregor.instagramclient.core;
 
 public class InstagramUser {
 
+    String username;
+    String profilePicture;
+
     public String getUserName() {
         return username;
     }
@@ -13,7 +16,4 @@ public class InstagramUser {
     public String profilePicture() {
         return profilePicture;
     }
-
-    String username;
-    String profilePicture;
 }

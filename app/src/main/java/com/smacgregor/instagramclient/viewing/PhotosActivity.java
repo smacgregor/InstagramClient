@@ -23,13 +23,13 @@ import cz.msebera.android.httpclient.Header;
 
 public class PhotosActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
-    private final String INSTAGRAM_CLIENTID = "e05c462ebd86446ea48a5af73769b602";
-
-    private List<InstagramPost> posts;
-    private InstagramPostsAdapter postsAdapter;
+    private static final String INSTAGRAM_CLIENTID = "e05c462ebd86446ea48a5af73769b602";
 
     @Bind(R.id.listViewPosts) ListView listViewPosts;
     @Bind(R.id.swipeContainer) SwipeRefreshLayout swipeRefreshLayout;
+
+    private List<InstagramPost> mPosts;
+    private InstagramPostsAdapter mPostsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +37,13 @@ public class PhotosActivity extends AppCompatActivity implements SwipeRefreshLay
         setContentView(R.layout.activity_photos);
         ButterKnife.bind(this);
 
-        posts = new ArrayList<>();
-        postsAdapter = new InstagramPostsAdapter(this, posts);
-        listViewPosts.setAdapter(postsAdapter);
+        mPosts = new ArrayList<>();
+        mPostsAdapter = new InstagramPostsAdapter(this, mPosts);
+        listViewPosts.setAdapter(mPostsAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setNestedScrollingEnabled(true);
 
-        // send out an api request to popular posts
+        // send out an api request to popular mPosts
         // On cold launch our refresh animation wont' fire unless it's done
         // outside of onCreate...
         swipeRefreshLayout.post(new Runnable() {
@@ -55,16 +55,21 @@ public class PhotosActivity extends AppCompatActivity implements SwipeRefreshLay
 
     }
 
+    @Override
+    public void onRefresh() {
+        fetchPopularPosts();
+    }
+
     public void fetchPopularPosts() {
         swipeRefreshLayout.setRefreshing(true);
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get("https://api.instagram.com/v1/media/popular/?client_id=" + INSTAGRAM_CLIENTID, null, new TextHttpResponseHandler() {
+        client.get("https://api.instagram.com/v1/media/popular/?client_id=" + PhotosActivity.INSTAGRAM_CLIENTID, null, new TextHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, String response) {
                 Log.i("DEBUG", response.toString());
-                posts.clear();
-                posts.addAll(InstagramPostsResponse.parseJSON(response).posts);
-                postsAdapter.notifyDataSetChanged();
+                mPosts.clear();
+                mPosts.addAll(InstagramPostsResponse.parseJSON(response).posts);
+                mPostsAdapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
             }
 
@@ -76,17 +81,11 @@ public class PhotosActivity extends AppCompatActivity implements SwipeRefreshLay
         });
     }
 
-    @Override
-    public void onRefresh() {
-        fetchPopularPosts();
-    }
-
     @OnItemClick(R.id.listViewPosts)
     public void onLoadVideo(int position) {
-        InstagramPost post = postsAdapter.getItem(position);
+        InstagramPost post = mPostsAdapter.getItem(position);
         if (post.getVideo() != null) {
-            Intent intent = new Intent(PhotosActivity.this, FullScreenVideoActivity.class);
-            intent.putExtra("video_url", post.getVideo().getUrl());
+            Intent intent = FullScreenVideoActivity.getStartIntent(this, post.getVideo().getUrl());
             startActivity(intent);
         }
     }

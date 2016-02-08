@@ -1,6 +1,8 @@
 package com.smacgregor.instagramclient.viewing;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.WindowManager;
@@ -17,8 +19,15 @@ import butterknife.ButterKnife;
  */
 public class FullScreenVideoActivity extends Activity {
 
-    @Bind(R.id.videoView)
-    VideoView videoView;
+    private static final String EXTRA_VIDEO_URL = "com.smacgregor.instagramclient.viewing.video_url";
+
+    @Bind(R.id.videoView) VideoView videoView;
+
+    public static Intent getStartIntent(Context context, final String videoURL) {
+        Intent intent = new Intent(context, FullScreenVideoActivity.class);
+        intent.putExtra(FullScreenVideoActivity.EXTRA_VIDEO_URL, videoURL);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +37,7 @@ public class FullScreenVideoActivity extends Activity {
         setContentView(R.layout.activity_full_screen_video);
         ButterKnife.bind(this);
 
-        playVideo(getIntent().getStringExtra("video_url"));
+        playVideo(getIntent().getStringExtra(FullScreenVideoActivity.EXTRA_VIDEO_URL));
     }
 
     private void playVideo(final String videoURL) {

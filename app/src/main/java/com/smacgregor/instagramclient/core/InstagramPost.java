@@ -11,6 +11,14 @@ import java.util.List;
  */
 
 public class InstagramPost {
+    private InstagramUser user;
+    private Likes likes;
+    private Images images;
+    private Videos videos;
+    private Caption caption;
+    private long createdTime;
+
+    @SerializedName("comments") private CommentsCollection commentsCollection;
 
     /**
      * Returns the user that created the post
@@ -60,30 +68,18 @@ public class InstagramPost {
     }
 
     private class CommentsCollection {
-        @SerializedName("data")
-        List<InstagramComment> comments;
+        @SerializedName("data") List<InstagramComment> comments;
     }
 
     private class Videos {
-        @SerializedName("standard_resolution")
-        InstagramVideo video;
+        @SerializedName("standard_resolution") InstagramVideo video;
     }
 
     private class Images {
         private class Image {
             String url;
         }
-        @SerializedName("standard_resolution")
-        Image image;
+        @SerializedName("standard_resolution") Image image;
     }
 
-    private InstagramUser user;
-    private Likes likes;
-    private Images images;
-    private Videos videos;
-    private Caption caption;
-    private long createdTime;
-
-    @SerializedName("comments")
-    private CommentsCollection commentsCollection;
 }

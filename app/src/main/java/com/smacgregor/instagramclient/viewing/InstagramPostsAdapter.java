@@ -27,32 +27,23 @@ public class InstagramPostsAdapter extends ArrayAdapter<InstagramPost> {
 
     // implement the ViewHolder pattern
     static class ViewHolder {
-        @Bind(R.id.tvCaption)
-        TextView caption;
+        @Bind(R.id.tvCaption) TextView caption;
 
-        @Bind(R.id.ivPhoto)
-        ImageView imageView;
+        @Bind(R.id.ivPhoto) ImageView imageView;
 
-        @Bind(R.id.profilePicture)
-        ImageView profilePicture;
+        @Bind(R.id.profilePicture) ImageView profilePicture;
 
-        @Bind(R.id.userName)
-        TextView userNameTextView;
+        @Bind(R.id.userName) TextView userNameTextView;
 
-        @Bind(R.id.likesCount)
-        TextView likesCountTextView;
+        @Bind(R.id.likesCount) TextView likesCountTextView;
 
-        @Bind(R.id.timeStamp)
-        TextView timeStampTextView;
+        @Bind(R.id.timeStamp) TextView timeStampTextView;
 
-        @Bind(R.id.likeHeart)
-        ImageView likeHeartImageView;
+        @Bind(R.id.likeHeart) ImageView likeHeartImageView;
 
-        @Bind(R.id.tvFirstComment)
-        TextView firstComment;
+        @Bind(R.id.tvFirstComment) TextView firstComment;
 
-        @Bind(R.id.tvSecondComment)
-        TextView secondComment;
+        @Bind(R.id.tvSecondComment) TextView secondComment;
 
         int imageWidth;
 
@@ -62,7 +53,7 @@ public class InstagramPostsAdapter extends ArrayAdapter<InstagramPost> {
     }
 
     public InstagramPostsAdapter(Context context, List<InstagramPost> instagramPhotos) {
-        super(context, android.R.layout.simple_list_item_1, instagramPhotos);
+        super(context, R.layout.item_photo, instagramPhotos);
     }
 
     @Override
@@ -88,16 +79,19 @@ public class InstagramPostsAdapter extends ArrayAdapter<InstagramPost> {
 
         // To Do - can't this be sized correctly in the XML without using Picasso
         // to resize this drawable?
-        Picasso.with(getContext()).load(R.drawable.small_like_heart)
+        Picasso.with(getContext())
+                .load(R.drawable.small_like_heart)
                 .resize(20, 0)
                 .into(viewHolder.likeHeartImageView);
 
-        Picasso.with(getContext()).load(post.getImageURL())
+        Picasso.with(getContext())
+                .load(post.getImageURL())
                 .placeholder(R.drawable.photo_placeholder)
                 .resize(viewHolder.imageWidth, 0)
                 .into(viewHolder.imageView);
 
-        Picasso.with(getContext()).load(post.getUser().profilePicture())
+        Picasso.with(getContext())
+                .load(post.getUser().profilePicture())
                 .resize(50, 50)
                 .into(viewHolder.profilePicture);
 
