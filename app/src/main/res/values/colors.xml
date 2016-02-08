@@ -5,5 +5,7 @@
     <color name="style_color_primary_dark">#21425d</color>
     <color name="style_color_accent">#01bcd5</color>
     <color name="black_overlay">#66000000</color>
+    <color name="style_color_profile_highlight">#0FEFEFEF</color>
+    <color name="style_color_grey_text">#AFB1B4</color>
 
 </resources>

@@ -2,4 +2,10 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Default Instagram post paddings -->
+    <dimen name="item_photo_horizontal_padding">20dp</dimen>
+    <dimen name="item_photo_vertical_padding">8dp</dimen>
+    <dimen name="item_photo_username_horizontal_padding">8dp</dimen>
+    <dimen name="item_photo_likes_text_view_horizontal_padding">5dp</dimen>
 </resources>
