@@ -13,8 +13,7 @@ import java.util.List;
  * Created by smacgregor on 2/2/16.
  */
 public class InstagramPostsResponse {
-    @SerializedName("data")
-    public List<InstagramPost> posts;
+    @SerializedName("data") public List<InstagramPost> posts;
 
     public InstagramPostsResponse() {
         posts = new ArrayList<>();

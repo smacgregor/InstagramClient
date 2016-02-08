@@ -5,9 +5,10 @@ package com.smacgregor.instagramclient.core;
  */
 public class InstagramVideo {
 
+    private String url;
+
     public String getUrl() {
         return url;
     }
 
-    private String url;
 }
