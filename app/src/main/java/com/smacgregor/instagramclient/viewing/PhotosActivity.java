@@ -25,8 +25,8 @@ public class PhotosActivity extends AppCompatActivity implements SwipeRefreshLay
 
     private static final String INSTAGRAM_CLIENTID = "e05c462ebd86446ea48a5af73769b602";
 
-    @Bind(R.id.listViewPosts) ListView listViewPosts;
-    @Bind(R.id.swipeContainer) SwipeRefreshLayout swipeRefreshLayout;
+    @Bind(R.id.list_posts) ListView listViewPosts;
+    @Bind(R.id.swiperefresh_container) SwipeRefreshLayout swipeRefreshLayout;
 
     private List<InstagramPost> mPosts;
     private InstagramPostsAdapter mPostsAdapter;
@@ -81,7 +81,7 @@ public class PhotosActivity extends AppCompatActivity implements SwipeRefreshLay
         });
     }
 
-    @OnItemClick(R.id.listViewPosts)
+    @OnItemClick(R.id.list_posts)
     public void onLoadVideo(int position) {
         InstagramPost post = mPostsAdapter.getItem(position);
         if (post.getVideo() != null) {

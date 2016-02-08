@@ -5,7 +5,7 @@
 
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swipeContainer"
+        android:id="@+id/swiperefresh_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -13,7 +13,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
-            android:id="@+id/listViewPosts"
+            android:id="@+id/list_posts"
             android:divider="@null"
             android:dividerHeight="15dp"
             android:layout_alignParentLeft="true"

@@ -27,23 +27,23 @@ public class InstagramPostsAdapter extends ArrayAdapter<InstagramPost> {
 
     // implement the ViewHolder pattern
     static class ViewHolder {
-        @Bind(R.id.tvCaption) TextView caption;
+        @Bind(R.id.text_caption) TextView caption;
 
-        @Bind(R.id.ivPhoto) ImageView imageView;
+        @Bind(R.id.image_post) ImageView imageView;
 
-        @Bind(R.id.profilePicture) ImageView profilePicture;
+        @Bind(R.id.circle_image_profile) ImageView profilePicture;
 
-        @Bind(R.id.userName) TextView userNameTextView;
+        @Bind(R.id.text_username) TextView userNameTextView;
 
-        @Bind(R.id.likesCount) TextView likesCountTextView;
+        @Bind(R.id.text_likes) TextView likesCountTextView;
 
-        @Bind(R.id.timeStamp) TextView timeStampTextView;
+        @Bind(R.id.text_timestamp) TextView timeStampTextView;
 
-        @Bind(R.id.likeHeart) ImageView likeHeartImageView;
+        @Bind(R.id.image_heart) ImageView likeHeartImageView;
 
-        @Bind(R.id.tvFirstComment) TextView firstComment;
+        @Bind(R.id.text_firstcomment) TextView firstComment;
 
-        @Bind(R.id.tvSecondComment) TextView secondComment;
+        @Bind(R.id.text_secondcomment) TextView secondComment;
 
         int imageWidth;
 

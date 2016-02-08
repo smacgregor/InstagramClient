@@ -6,7 +6,7 @@
          username, and time stamp -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:id="@+id/ivUserLayout"
+        android:id="@+id/relative_profile"
         android:minHeight="70dp"
         android:paddingLeft="@dimen/item_photo_horizontal_padding"
         android:paddingRight="@dimen/item_photo_horizontal_padding"
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="20dp"
-            android:id="@+id/profilePicture"
+            android:id="@+id/circle_image_profile"
             app:civ_border_width="1dp"
             app:civ_border_color="@color/style_color_profile_highlight"
             android:layout_centerVertical="true"
@@ -29,18 +29,18 @@
             android:layout_height="wrap_content"
             android:textColor="@color/style_color_primary"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/userName"
+            android:id="@+id/text_username"
             android:paddingLeft="@dimen/item_photo_username_horizontal_padding"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/profilePicture"
-            android:layout_toEndOf="@+id/profilePicture"/>
+            android:layout_toRightOf="@+id/circle_image_profile"
+            android:layout_toEndOf="@+id/circle_image_profile"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/style_color_grey_text"
-            android:id="@+id/timeStamp"
+            android:id="@+id/text_timestamp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
@@ -51,8 +51,8 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ivPhoto"
-        android:layout_below="@id/ivUserLayout"
+        android:id="@+id/image_post"
+        android:layout_below="@id/relative_profile"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
@@ -60,8 +60,8 @@
          likes count -->
 
     <LinearLayout
-        android:id="@+id/likesRow"
-        android:layout_below="@+id/ivPhoto"
+        android:id="@+id/linear_likes"
+        android:layout_below="@+id/image_post"
         android:orientation="horizontal"
         android:paddingTop="@dimen/item_photo_vertical_padding"
         android:paddingLeft="@dimen/item_photo_horizontal_padding"
@@ -71,14 +71,14 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/likeHeart"/>
+            android:id="@+id/image_heart"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:paddingLeft="@dimen/item_photo_likes_text_view_horizontal_padding"
             android:textColor="@color/style_color_primary"
-            android:id="@+id/likesCount"/>
+            android:id="@+id/text_likes"/>
     </LinearLayout>
 
     <!-- Our caption and the 2 most recent comments layout vertically below our likes count -->
@@ -90,8 +90,8 @@
         android:paddingLeft="@dimen/item_photo_horizontal_padding"
         android:paddingRight="@dimen/item_photo_horizontal_padding"
         android:textColor="@color/style_color_primary"
-        android:id="@+id/tvCaption"
-        android:layout_below="@+id/likesRow"
+        android:id="@+id/text_caption"
+        android:layout_below="@+id/linear_likes"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -99,8 +99,8 @@
         android:ellipsize="end" />
 
     <TextView
-        android:id="@+id/tvFirstComment"
-        android:layout_below="@+id/tvCaption"
+        android:id="@+id/text_firstcomment"
+        android:layout_below="@+id/text_caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/style_color_primary"
@@ -110,9 +110,9 @@
         android:paddingRight="@dimen/item_photo_horizontal_padding"/>
 
     <TextView
-        android:id="@+id/tvSecondComment"
+        android:id="@+id/text_secondcomment"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/tvFirstComment"
+        android:layout_below="@+id/text_firstcomment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/style_color_primary"

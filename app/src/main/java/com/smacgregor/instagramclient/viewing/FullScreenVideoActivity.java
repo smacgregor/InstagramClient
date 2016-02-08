@@ -21,7 +21,7 @@ public class FullScreenVideoActivity extends Activity {
 
     private static final String EXTRA_VIDEO_URL = "com.smacgregor.instagramclient.viewing.video_url";
 
-    @Bind(R.id.videoView) VideoView videoView;
+    @Bind(R.id.video_view) VideoView videoView;
 
     public static Intent getStartIntent(Context context, final String videoURL) {
         Intent intent = new Intent(context, FullScreenVideoActivity.class);
